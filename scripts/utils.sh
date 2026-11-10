@@ -5,12 +5,12 @@ envvar_value() {
 }
 
 tmux_option_or_fallback() {
-	local option_value
-	option_value="$(tmux show-option -gqv "$1")"
-	if [ -z "$option_value" ]; then
-		option_value="$2"
-	fi
-	echo "$option_value"
+    local option_value
+    option_value="$(tmux show-option -gqv "$1")"
+    if [ -z "$option_value" ]; then
+        option_value="$2"
+    fi
+    echo "$option_value"
 }
 
 FLOAX_WIDTH=$(envvar_value FLOAX_WIDTH)
@@ -23,6 +23,7 @@ FLOAX_TITLE=$(envvar_value FLOAX_TITLE)
 DEFAULT_TITLE='FloaX: C-M-s 󰘕   C-M-b 󰁌   C-M-f 󰊓   C-M-r 󰑓   C-M-e 󱂬   C-M-d '
 FLOAX_SESSION_NAME=$(envvar_value FLOAX_SESSION_NAME)
 DEFAULT_SESSION_NAME='scratch'
+FLOAX_INITIAL_COMMAND="$(tmux_option_or_fallback '@floax-initial-command' '')"
 
 set_bindings() {
     tmux bind -n C-M-s run "$CURRENT_DIR/zoom-options.sh in"
